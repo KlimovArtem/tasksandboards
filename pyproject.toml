@@ -12,6 +12,7 @@ pytest = "^8.3.3"
 pytest-django = "^4.9.0"
 pytils = "^0.4.1"
 pre-commit = "3.4"
+django-htmx = "^1.19.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.5"
@@ -35,10 +36,11 @@ unsafe-fixes = true
 show-fixes = true
 line-length = 120
 lint.select = ["ALL"]
-lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "Q000"]
+lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "Q000", "RUF001"]
 
 [tool.ruff.format]
 quote-style = "single"
+
 
 [tool.ruff.lint.isort]
 lines-after-imports = 2
