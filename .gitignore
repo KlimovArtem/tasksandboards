@@ -149,6 +149,14 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# pylint config file
+.pylintrc
+
+# isort config file
+.isort.cfg
+#.mypy config file
+.mypy.ini
+
 # Cython debug symbols
 cython_debug/
 

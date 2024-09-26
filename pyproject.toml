@@ -24,7 +24,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-pythonpath = "src/"
+pythonpath = "src/tasksandboards/"
 DJANGO_SETTINGS_MODULE = "tasksandboards.settings"
 norecursedirs = "venv/*"
 testpath = "tests/"
@@ -44,9 +44,8 @@ quote-style = "single"
 
 [tool.ruff.lint.isort]
 lines-after-imports = 2
-no-lines-before = ["standard-library", "local-folder"]
-known-third-party = []
-known-local-folder = ["whole_app"]
+known-third-party = ["django, pytest"]
+known-local-folder = ["tasksandboards"]
 
 [tool.ruff.lint.extend-per-file-ignores]
 "tests/*.py" = ["ANN401", "S101", "S311", "ANN201"]
