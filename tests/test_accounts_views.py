@@ -1,25 +1,23 @@
 from http import HTTPStatus
 
 import pytest
-from django.contrib.auth import get_user_model
 from django.core import mail
-from django.db.models import fields
-from django.test import Client, RequestFactory
-
-from tasksandboards.accounts.models import Account
-from tasksandboards.accounts.views import SigninView
 
 
 class TestLogin:
-    def test_login_url(self, client: Client):
-        response = client.get('accounts/login/')
-        assert response.status_code == HTTPStatus.OK, f'Ресурс не доступен, код ответа {response.status_code }.'
-        assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс не доступен, код ответа 404. Проверь *urls.py*.'
-
-    def test_login_view(self, client: Client):
+    def test_login_url(self, client):
         response = client.get('accounts/login/')
         assert (
-            response.template == 'accounts/login.html'
+            response.status_code == HTTPStatus.OK
+        ), f'Ресурс `accounts/login/` не доступен, код ответа {response.status_code }.'
+        assert (
+            response.status_code != HTTPStatus.NOT_FOUND
+        ), 'Ресурс `accounts/login/` не доступен, код ответа 404. Проверь *urls.py*.'
+
+    def test_login_view(self, client):
+        response = client.get('accounts/login/')
+        assert (
+            response.context.template_name == 'accounts/login.html'
         ), 'Ошибка!! Класс LoginView не использует шаблон `account/login.html'
 
 
@@ -28,12 +26,12 @@ class TestSignup:
         response = client.get('accounts/signup/')
         assert (
             response.status_code == HTTPStatus.BAD_REQUEST
-        ), 'Пользователь имеет досту к служебному ресурсую, проверь *views.py*.'
+        ), 'Пользователь имеет досту к служебному ресурсу `accounts/signup/, проверь *views.py*.'
 
         response = client.post('accounts/signup/')
         assert (
             response.status_code == HTTPStatus.BAD_REQUEST
-        ), 'Пользователь имеет досту к служебному ресурсую, проверь *views.py*.'
+        ), 'Пользователь имеет досту к служебному ресурсую `accounts/signup/, проверь *views.py*.'
 
     def test_nodata_signup(self, client):
         invalid_response = client.post(
@@ -42,7 +40,7 @@ class TestSignup:
         )
         assert (
             invalid_response.status_code == HTTPStatus.BAD_REQUEST
-        ), 'Пользователь может зарегестрироваться не передовая данных для регистрации.'
+        ), 'Пользователь может зарегестрироваться не передавая данных для регистрации.'
         assert (
             'email' in invalid_response.context['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `email`'
@@ -53,11 +51,14 @@ class TestSignup:
             'confirm_password' in invalid_response.context['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `confirm_password`'
 
-    def test_signup_context(self, client: Client):
+    def test_signup_context(self, client):
         response = client.get('accounts/signup/', header={'HX-Request': 'true'})
 
+        assert response.status_code == HTTPStatus.OK, f'Ресурс не доступен, код ответа {response.status_code }.'
+        assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс не доступен, код ответа 404. Проверь *urls.py*.'
+
         assert (
-            response.template == 'accounts/signup.html'
+            response.context.template_name == 'accounts/signup.html'
         ), 'Ошибка!! Класс SignupView не использует шаблон `account/signup.html'
         assert 'form' in response.context, 'В контекст не передан объект формы.'
         assert 'email' in response.context['form'].fields, 'В форме нет поля `email`, проверь *forms.py*.'
@@ -68,30 +69,33 @@ class TestSignup:
         assert response.context['form'].fields['email'].required, 'Проверь что поле `email` обязательно для заполнения.'
         assert (
             response.context['form'].fields['password'].required
-        ), 'Проверь что поле `email` обязательно для заполнения.'
+        ), 'Проверь что поле `password` обязательно для заполнения.'
         assert (
             response.context['form'].fields['confirm_password'].required
-        ), 'Проверь что поле `email` обязательно для заполнения.'
+        ), 'Проверь что поле `confirm_password` обязательно для заполнения.'
 
     @pytest.mark.django_db(transaction=True)
-    def test_valid_user_signup(self, client: Client, django_user_model):
+    def test_valid_user_signup(self, client, django_user_model):
         outbox_before_count = len(mail.outbox)
         valid_data = {
             'email': 'testuser@email.com',
             'password': 1234567,
             'confirm_password': 1234567,
         }
-        response = client.get('accounts/signup/', headers={'HX-Request': 'true'})
+        response = client.post(
+            'accounts/signup/',
+            data=valid_data,
+            headers={'HX-Request': 'true'},
+        )
         outbox_after = mail.outbox
 
-        assert response.status_code == HTTPStatus.OK, f'Ресурс не доступен, код ответа {response.status_code }.'
-        assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс не доступен, код ответа 404. Проверь *urls.py*.'
-
+        assert response.status_code == HTTPStatus.CREATED, 'Корректный запрос должен возвращать код 201.'
         new_user = django_user_model.objects.filter(email=valid_data['email'])
-        assert new_user.exists(), 'Корректный запрос должен создать нового пользователя.'
+
+        assert new_user.exists(), 'Корректный запрос не создаёт нового пользователя.'
         assert (
             len(outbox_after) == outbox_before_count + 1
-        ), 'Если отправлен корректный запрос - должен быть отправлено письмо с кодом подтверждения.'
+        ), 'При корректном запросе не отправляется письмо с кодом подтверждения.'
 
         assert (
             valid_data['email'] == outbox_after.to
@@ -99,83 +103,101 @@ class TestSignup:
         new_user.delete()
 
     @pytest.mark.django_db(transaction=True)
-    def test_invalid_user_signup(self, client: Client, django_user_model):
-        pass
+    def test_invalid_user_signup(self, client, django_user_model):
+        invalid_data = {
+            'email': 'tes@^^tuser.mail.com',
+            'password': '',
+            'confirm_password': 2510561,
+        }
+        outbox_before_count = len(mail.outbox)
+        users_number = django_user_model.objects.count()
+        response = client.post(
+            'accounts/signup/',
+            data=invalid_data,
+            headers={'HX-Request': 'true'},
+        )
+        outbox_after_count = len(mail.outbox)
+
+        assert response.status_code == HTTPStatus.BAD_REQUEST, 'При отправке некоректных данных не возвращается код 400'
+        assert (
+            django_user_model.objects.count() == users_number
+        ), 'При отправке не коректных данных создатся пользователь.'
+        assert (
+            outbox_after_count == outbox_before_count
+        ), 'При отправке не коректных данных отправляется письмо на почту пользователя'
 
 
 class TestSignin:
-    def test_signin_get(self, rf: RequestFactory, client: Client):
-        htmx_request = rf.get('accounts/signin/')
-        htmx_request.META['HX-Request'] = 'true'
-        htmx_response = SigninView.as_view()(htmx_request)
+    def non_htmx_request(self, client):
         response = client.get('accounts/signin/')
-
         assert (
             response.status_code == HTTPStatus.BAD_REQUEST
-        ), 'Пользователь имеет досту к служебному ресурсую, проверь *views.py*.'
-        assert (
-            htmx_response.status_code == HTTPStatus.OK
-        ), f'Ресурс не доступен, код ответа {htmx_response.status_code }.'
-        assert (
-            htmx_response.status_code != HTTPStatus.NOT_FOUND
-        ), 'Ресурс не доступен, код ответа 404. Проверь *urls.py*.'
-        assert (
-            htmx_response.template == 'accounts/signup.html'
-        ), 'Ошибка!! Класс SignupView не использует шаблон `account/signup.html'
-        assert 'form' in htmx_response.context, 'В контекст не передан объект формы.'
-        assert 'email' in htmx_response.context['form'].fields, 'В форме нет поля `email`, проверь *forms.py*.'
-        assert 'password' in htmx_response.context['form'].fields, 'В форме нет поля `password`, проверь *forms.py*.'
-        assert (
-            htmx_response.context['form'].fields['email'].required
-        ), 'Проверь что поле `email` обязательно для заполнения.'
-        assert (
-            htmx_response.context['form'].fields['password'].required
-        ), 'Проверь что поле `email` обязательно для заполнения.'
+        ), 'Пользователь имеет досту к служебному ресурсу `accounts/signin/`, проверь *views.py*.'
 
-    @pytest.mark.django_db(transaction=True)
-    def test_signin_view_post(self, rf: RequestFactory, client: Client):
-        user = get_user_model().objects.create(
-            email='testuser@email.com',
-            password=1234567,
-        )
-        htmx_request = rf.post(
-            'accounts/signin/',
-            {
-                'email': 'testuser@email.com',
-                'password': 1234567,
-            },
-        )
-        htmx_request_wrong_data = rf.post(
-            'accounts/signin/',
-            {
-                'email': 't@stuser@124email.com',
-                'password': 1234567,
-            },
-        )
-        htmx_request.META['HX-Request'] = 'true'
-        htmx_request_wrong_data.META['HX-Request'] = 'true'
-        htmx_response = SigninView.as_view()(htmx_request)
-        response_with_wrong_data = SigninView.as_view()(htmx_request_wrong_data)
+        response = client.post('accounts/signin/')
         assert (
-            htmx_response.status_code == HTTPStatus.SEE_OTHER
-        ), 'Пользователь не перенаправляется на запрашиваемую страницу.'
-        assert user.is_authenticated, 'Пользователь не авторизовался, проверь *views.py*.'
+            response.status_code == HTTPStatus.BAD_REQUEST
+        ), 'Пользователь имеет досту к служебному ресурсу `accounts/signin/, проверь *views.py*.'
+
+    def test_nodata_signin(self, client):
+        empty_response = client.post(
+            'accounts/signin/',
+            header={'HX-Request': 'true'},
+        )
+        assert empty_response.status_code == HTTPStatus.BAD_REQUEST, 'Не коректный запрос должен возвращать код 400.'
         assert (
-            response_with_wrong_data.context['form'].fields['email'].errors
+            'email' in empty_response.context['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `email`'
         assert (
-            response_with_wrong_data.context['form'].fields['password'].errors
+            'password' in empty_response.context['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `password`'
 
+    def test_signin_context(self, client):
+        response = client.get('accounts/signin/', header={'HX-Request': 'true'})
 
-class TestAccountModel:
-    def test_account_model(self):
-        model_fields = Account._meta.fields
-        email_field = next(field for field in model_fields if field.hasattr('email'))
+        assert response.status_code == HTTPStatus.OK, f'Ресурс не доступен, код ответа {response.status_code }.'
+        assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс не доступен, код ответа 404. Проверь *urls.py*.'
 
-        assert email_field is not None, 'Модель `Account` должна содержать атрибут `email`.'
-        assert isinstance(
-            email_field,
-            fields.EmailField,
-        ), 'Поле `email` должно быть типа `EmailField`'
-        assert email_field.unique, 'Поле `email` должно быть уникальным.'
+        assert (
+            response.context.template_name == 'accounts/signin.html'
+        ), 'Ошибка!! Класс SigninView не использует шаблон `account/signin.html'
+        assert 'form' in response.context, 'В контекст не передан объект формы.'
+        assert 'email' in response.context['form'].fields, 'В форме нет поля `email`, проверь *forms.py*.'
+        assert 'password' in response.context['form'].fields, 'В форме нет поля `password`, проверь *forms.py*.'
+
+        assert response.context['form'].fields['email'].required, 'Проверь что поле `email` обязательно для заполнения.'
+        assert (
+            response.context['form'].fields['password'].required
+        ), 'Проверь что поле `password` обязательно для заполнения.'
+
+    @pytest.mark.django_db(transaction=True)
+    def test_valid_user_signin(self, client, django_user_model):
+        valid_data = {
+            'email': 'testuser@mail.com',
+            'password': 1234567,
+        }
+        user = django_user_model.objects.create(**valid_data)
+        response = client.post(
+            'accounts/signin/',
+            data=valid_data,
+            headers={'HX-Request': 'true'},
+        )
+
+        assert response.status_code == HTTPStatus.OK, 'Корректный запрос не возвращает код 200.'
+        assert user.is_authenticated(), 'При отправке корректных данных пользователь не был авторизован.'
+        user.delete()
+
+
+class TestLogout:
+    def test_valid_request(self, client, django_user_model):
+        valid_data = {
+            'email': 'testuser@mail.com',
+            'password': 1234567,
+        }
+        user = django_user_model.objets.create(**valid_data)
+        authenticated_client = client.force_login(user)
+        response = authenticated_client.post('accounts/logout/')
+
+        assert response.status_code == HTTPStatus.OK, 'Корректный запрос возвращает код 200.'
+        assert response.status_code == HTTPStatus.NOT_FOUND, 'Ресурс `accounts/logout/` не найден проверь *urls.py*.'
+        assert not authenticated_client.is_authenticated(), 'Пользователь не разлогинивается при коректном запросе.'

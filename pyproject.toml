@@ -40,6 +40,7 @@ lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "Q000", "RUF001"]
 
 [tool.ruff.format]
 quote-style = "single"
+exclude = ["manage.py", "**/migrations/*", "settings.py", "*sgi.py"]
 
 
 [tool.ruff.lint.isort]
@@ -48,4 +49,4 @@ known-third-party = ["django, pytest"]
 known-local-folder = ["tasksandboards"]
 
 [tool.ruff.lint.extend-per-file-ignores]
-"tests/*.py" = ["ANN401", "S101", "S311", "ANN201"]
+"tests/*.py" = ["ANN401", "S101", "S311", "ANN201", "ANN001"]
