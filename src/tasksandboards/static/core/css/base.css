@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Стилизация элемента кнопки */
+.btn {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #646464;
+  color: #fff;
+  min-width: 9rem;
+  padding: 0 1rem;
+  font-family: inherit;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:hover {
+  background: #262626;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #26262645;
+}
+
+.btn[disabled] {
+  background: #64646499;
+  color: #fff99;
+}
+
+.btn span {
+  align-content: center;
+  height: 32px;
+}
