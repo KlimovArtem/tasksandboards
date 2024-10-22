@@ -8,27 +8,13 @@
             <h1>Tasks & Boards</h1>
             <p>Многоформатный трекер для ведения заметок и совместной работы</p>
         </header>
-        <section>
+        <section hx-target="form">
             <menu>
-                <a class="login-menu-items" href=""><span>Вход</span></a>
-                <a class="login-menu-items" href=""><span>Регистрация</span></a>
+                <button class="login-menu-items" hx-get="{% url 'accounts:signin' %}">Вход</button>
+                <button class="login-menu-items" href="">Регистрация</button>
             </menu>
-            <form action="" method="post">
-                <h2>Вход</h2>
-                <fieldset>
-                    <legend>ПОЧТА</legend>
-                    <input id="signin-email" name="email" type="email"></input>
-                </fieldset>
-                <fieldset>
-                    <legend>ПАРОЛЬ</legend>
-                    <input  id="signin-password" name="password" type="password"></input>
-                </fieldset>
-                <p class="password-reset-lnk">Забыли пароль? <a href="">Востановить пароль</a></p>
-                <div class="login-btn-layout">
-                    <button class="btn" type="submit">
-                        <span>Вход</span>
-                    </button>
-                </div>
+            <form action="{% url 'accounts:signin' %}" method="post" novalidate>
+                <span hx-get="{% url 'accounts:signin' %}" hx-trigger="load"></span>
             </form>
         </section>
     </main>

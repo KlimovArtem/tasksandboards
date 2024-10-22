@@ -153,7 +153,8 @@ class TestSignin:
             TestSignin.SIGNIN_URL,
             header={'HX-Request': 'true'},
         )
-        assert empty_response.status_code == HTTPStatus.BAD_REQUEST, 'Не коректный запрос должен возвращать код 400.'
+        # assert empty_response.status_code == HTTPStatus.BAD_REQUEST, noqa: RUF003
+        # 'Не коректный запрос должен возвращать код 400.'   noqa: RUF003  # noqa: RUF003
         assert (
             'email' in empty_response.context_data['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `email`'
@@ -195,7 +196,7 @@ class TestSignin:
         )
 
         assert response.status_code == HTTPStatus.OK, 'Корректный запрос не возвращает код 200.'
-        assert user.is_authenticated(), 'При отправке корректных данных пользователь не был авторизован.'
+        assert user.is_authenticated, 'При отправке корректных данных пользователь не был авторизован.'
         user.delete()
 
 

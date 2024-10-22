@@ -1,0 +1,18 @@
+<h2>Вход</h2>
+{{ form.non_field_errors }}
+<fieldset>
+    <legend>ПОЧТА</legend>
+    {{ form.email }}
+</fieldset>
+{{ form.email.errors}}
+<fieldset>
+    <legend>ПАРОЛЬ</legend>
+    {{ form.password }}
+</fieldset>
+{{ form.password.errors}}
+<p class="password-reset-lnk">Забыли пароль? <a href="">Востановить пароль</a></p>
+<div class="login-btn-layout">
+    <button hx-post="{% url "accounts:signin" %}" class="btn" type="submit">
+        Вход
+    </button>
+</div>

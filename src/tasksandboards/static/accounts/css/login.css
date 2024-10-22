@@ -28,7 +28,7 @@ section {
     min-width: 300px;
     margin-right: auto;
   }
-  
+
   section {
     margin-right: auto;
   }
@@ -57,18 +57,11 @@ menu {
   text-align: center;
   font-size: 1rem;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-menu-items:visited {
-  color: inherit;
+  border: 2px solid transparent;
 }
 
 .login-menu-items:hover {
   border-bottom: 2px solid #000;
-  transfer: translateY(1px);
 }
 
 .login-menu-items:focus {
@@ -89,6 +82,7 @@ menu {
 /*Стилизация формы входа*/
 form {
   width: 26.25rem;
+  min-height: 16rem;
   padding: 1rem 2rem;
   box-shadow: 0 0 5px 0 #000, 0 0 6px 0 #fff;
   border-radius: 5px;
@@ -103,7 +97,7 @@ fieldset {
   width: 100%;
   height: 2.5rem;
   border-radius: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   padding: 0 1rem;
 }
 
@@ -113,7 +107,7 @@ fieldset legend {
   padding: 0 0.25rem;
 }
 
-    
+
 fieldset input {
   width: 100%;
   height: 100%;
@@ -131,4 +125,23 @@ fieldset input {
 .login-btn-layout {
   display: flex;
   justify-content: center;
+}
+
+.errorlist {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0.5rem 0;
+}
+
+.errorlist li {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  margin: .5rem 0;
+  border: 0;
+  box-shadow: 0 0 0 2px #fb7272;
+  background-color: #ffc1c1;
+  border-radius: 5px;
+  transform: translateY(-60%);
 }

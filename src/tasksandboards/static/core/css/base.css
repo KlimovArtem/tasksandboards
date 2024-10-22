@@ -23,7 +23,7 @@ body {
   background: #646464;
   color: #fff;
   min-width: 9rem;
-  padding: 0 1rem;
+  padding: 0.75rem 1rem;
   font-family: inherit;
   text-decoration: none;
   text-align: center;
@@ -45,10 +45,5 @@ body {
 
 .btn[disabled] {
   background: #64646499;
-  color: #fff99;
-}
-
-.btn span {
-  align-content: center;
-  height: 32px;
+  color: #ffffff99;
 }
