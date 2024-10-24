@@ -153,8 +153,6 @@ class TestSignin:
             TestSignin.SIGNIN_URL,
             header={'HX-Request': 'true'},
         )
-        # assert empty_response.status_code == HTTPStatus.BAD_REQUEST, noqa: RUF003
-        # 'Не коректный запрос должен возвращать код 400.'   noqa: RUF003  # noqa: RUF003
         assert (
             'email' in empty_response.context_data['form'].errors
         ), 'Форма не передаёт информацию об ошибках в поле `email`'
