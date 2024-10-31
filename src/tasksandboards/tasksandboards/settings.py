@@ -134,3 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     "accounts.backends.EmailBackend",
 ]
+
+LOGIN_URL = 'accounts:login'
+LOGOUT_REDIRECT_UR = 'accounts:login'
+# LOGIN_REDIRECT_URL = 'core:start_page'

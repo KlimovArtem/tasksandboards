@@ -1,0 +1,23 @@
+<h2>Регистрация</h2>
+{{ form.non_field_errors }}
+<fieldset>
+    <legend>ПОЧТА</legend>
+    {{ form.email }}
+</fieldset>
+{{ form.email.errors}}
+<fieldset>
+    <legend>ПАРОЛЬ</legend>
+    {{ form.password1 }}
+</fieldset>
+{{ form.password1.errors}}
+<fieldset>
+    <legend>ПОДТВЕРДИЕ ПАРОЛЯ</legend>
+    {{ form.password2}}
+</fieldset>
+{{ form.password2.errors}}
+
+<div class="login-btn-layout">
+    <button hx-post="{% url "accounts:signin" %}" class="btn" type="submit">
+        Зарегистрироваться
+    </button>
+</div>

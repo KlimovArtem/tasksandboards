@@ -206,7 +206,7 @@ class TestLogout:
             'email': 'testuser@mail.com',
             'password': 1234567,
         }
-        user = django_user_model.objets.create(**valid_data)
+        user = django_user_model.objects.create(**valid_data)
         authenticated_client = client.force_login(user)
         response = authenticated_client.post(TestLogout.LOGOUT_URL)
 
