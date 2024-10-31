@@ -1,0 +1,16 @@
+{% load static %}
+<h2>Подтверждение регистрации</h2>
+<p>На указанный адрес электронной почты отправлен код подтверждения</p>
+<div class="confirm_signup_fields_wrapper" id="inputs">
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        {{ field }}
+    {% endfor %}
+</div>
+<p>Не пришел код? <a href="" class="lnk">Отправить повторно.</a></p>
+<div class="login-btn-layout">
+    <button hx-post="{% url "accounts:confirm_signup" %}" class="btn" type="submit">
+        <span>Отправить</span>
+    </button>
+</div>
+<script src={% static "accounts/js/otp_inputs.js" %}></script>

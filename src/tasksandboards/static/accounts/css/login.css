@@ -79,7 +79,7 @@ menu {
   height: 32px;
 }
 
-/*Стилизация формы входа*/
+/*Стилизация формы входа и регистрации*/
 form {
   width: 26.25rem;
   min-height: 16rem;
@@ -91,6 +91,19 @@ form {
 form h2 {
   text-align: center;
   margin-bottom: 0.5rem;
+}
+
+form > p {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+form > h2 + p {
+  text-align: center;
+}
+
+form .btn {
+  margin: 0.5rem 0;
 }
 
 fieldset {
@@ -117,11 +130,6 @@ fieldset input {
   margin: -1rem 0 0.5rem 0;
 }
 
-.password-reset-lnk {
-  font-size: 0.75rem;
-  margin: -.5rem 0 0.5rem 1rem;
-}
-
 .login-btn-layout {
   display: flex;
   justify-content: center;
@@ -144,4 +152,24 @@ fieldset input {
   background-color: #ffc1c1;
   border-radius: 5px;
   transform: translateY(-60%);
+}
+
+/*Стилизация формы подтверждения регистрации*/
+.confirm_signup_fields_wrapper {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem 0;
+}
+
+.confirm_signup_fields {
+  width: 3rem;
+  height: 3.25rem;
+  padding: 0.25rem 0.25rem;
+  text-align: center;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  font-size: 2rem;
 }

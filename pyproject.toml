@@ -37,7 +37,7 @@ unsafe-fixes = true
 show-fixes = true
 line-length = 120
 lint.select = ["ALL"]
-lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "ANN001" "Q000", "RUF001"]
+lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "ANN001", "Q000", "RUF001"]
 
 [tool.ruff.format]
 quote-style = "single"

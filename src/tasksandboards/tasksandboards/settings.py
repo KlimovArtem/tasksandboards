@@ -131,6 +131,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / 'email_debug_log'
+
 AUTHENTICATION_BACKENDS = [
     "accounts.backends.EmailBackend",
 ]

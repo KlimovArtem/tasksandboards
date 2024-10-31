@@ -11,7 +11,7 @@
         <section hx-target="form">
             <menu>
                 <button class="login-menu-items" hx-get="{% url 'accounts:signin' %}">Вход</button>
-                <button class="login-menu-items" href="">Регистрация</button>
+                <button class="login-menu-items" hx-get="{% url 'accounts:signup' %}">Регистрация</button>
             </menu>
             <form action="{% url 'accounts:signin' %}" method="post" novalidate>
                 <span hx-get="{% url 'accounts:signin' %}" hx-trigger="load"></span>

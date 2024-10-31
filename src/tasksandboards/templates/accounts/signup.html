@@ -17,7 +17,7 @@
 {{ form.password2.errors}}
 
 <div class="login-btn-layout">
-    <button hx-post="{% url "accounts:signin" %}" class="btn" type="submit">
-        Зарегистрироваться
+    <button hx-post="{% url "accounts:signup" %}" class="btn" type="submit">
+        <span>Отправить</span>
     </button>
 </div>

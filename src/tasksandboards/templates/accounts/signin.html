@@ -10,9 +10,11 @@
     {{ form.password }}
 </fieldset>
 {{ form.password.errors}}
-<p class="password-reset-lnk">Забыли пароль? <a href="">Востановить пароль</a></p>
+<p>Забыли пароль? <a href="" class="lnk">Востановить пароль</a></p>
 <div class="login-btn-layout">
     <button hx-post="{% url "accounts:signin" %}" class="btn" type="submit">
-        Вход
+        <span>
+            Вход
+        </span>
     </button>
 </div>
