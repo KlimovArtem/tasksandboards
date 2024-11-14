@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <div style="display: flex; flex-flow: column nowrap; justify-content: center; align-items: center">
+        <div style="background: #8DD06C; border: 2px solid #228B22; width: 250px; height: 150px;">
+            <h1 style="color: #fff;">Вы успешно вошли в аккаунт</h1>
+        </div>
+        <div>
+            <a class="btn" href="{% url "accounts:logout" %}">Выход</a>
+        </div>
+    <div>
+{% endblock %}

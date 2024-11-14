@@ -1,26 +1,32 @@
 from django.contrib.auth import get_user_model
-from django.shortcut import get_object_or_404
+from django.contrib.auth.backends import BaseBackend
+
 
 UserModel = get_user_model()
 
 
-class EmailBackend:
+class EmailBackend(BaseBackend):
+    """Аутентификация пользователей по электронную почту."""
+
     def authenticate(self, request, email=None, password=None, **kwargs):
         if email is None:
-            email = kwargs.get(UserModel.EMAIL_FIELD)
+            email = kwargs.get(UserModel.USERNAME_FIELD)
         if email is None or password is None:
             return None
         try:
-            user = get_object_or_404(UserModel, email=email)
+            user = UserModel.objects.get_by_natural_key(email)
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user
 
-        def get_user(self, user_id):
-            try:
-                user = UserModel._default_manager.get(pk=user_id)
-            except UserModel.DoesNotExist:
-                return None
-            return user if self.user_can_authenticate(user) else None
+    def user_can_authenticate(self, user):
+        return getattr(self, 'is_active', True)
+
+    def get_user(self, user_id):
+        try:
+            user = UserModel.objects.get(pk=user_id)
+        except UserModel.DoesNotExist:
+            return None
+        return user if self.user_can_authenticate(user) else None

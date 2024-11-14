@@ -4,6 +4,7 @@
   --light-black: #1b1b1b;
   --dark-grey: #262626;
   --grey: #878787;
+  --light-grey: #f4f4f4
 }
 
 * {
@@ -19,6 +20,7 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  background: var(--light-grey);
 }
 
 /* Стилизация элемента кнопки */
@@ -37,24 +39,20 @@ body {
   padding: 0.5rem 1rem;
   border: 0;
   border-radius: 1rem;
-  box-shadow: 0 0 2px 0 var(--dark-grey);
   font-family: inherit;
-  color: var(--dark-grey);
+  color: var(--white);
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  background: var(--white);
+  background: linear-gradient(0deg, #16151A, #585858);
 }
 
 .btn:hover {
-  background: var(--dark-grey);
-  text-shadow: 0 0 3px var(--white);
-  color: var(--white);
+  text-shadow: 0 0 4px var(--white);
 }
 
 .btn:focus {
-  background: var(--dark-grey);
-  color: var(--white);
+  text-shadow: 0 0 4px var(--white);
 }
 
 .btn:active {
@@ -68,66 +66,22 @@ body {
     text-shadow: none;
 }
 
-.btn-md {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  min-width: calc(var(---md-fnt-size) * 9);
-  height: calc(var(--md-fnt-size) * 2.25);
-  padding: calc(var(--md-fnt-size)/2) var(--md-fnt-size);
-  border: 0;
-  border-radius: var(--md-fnt-size);
-  box-shadow: 0 0 2px 0 var(--dark-grey);
-  font-family: inherit;
-  font-size: var(--md-fnt-size);
-  color: var(--dark-grey);
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  background: var(--white);
-}
-
-.btn-md:hover {
-  background: var(--dark-grey);
-  text-shadow: 0 0 3px var(--white);
-  color: var(--white);
-}
-
-.btn-md:focus {
-  background: var(--dark-grey);
-  color: var(--white);
-}
-
-.btn-md:active {
-  text-shadow: none;
-}
-
-.btn-md[disabled] {
-    color: var(--white);
-    background: var(--grey);
-    cursor: not-allowed;
-    text-shadow: none;
-}
-
 .lnk:link {
   all: unset;
-  font-size: var(--fnt-size);
-  color: var(--black);
+  font-size: 1rem;
+  color: var(--dark-grey);
   cursor: pointer;
-  text-decoration: underline;
 }
+
 .lnk:visited {
-  font-size: var(--fnt-size);
   color: var(--grey);
 }
+
 .lnk:hover {
   text-decoration: underline;
   color: var(--dark-grey);
 }
+
 .lnk:active {
   color: var(--grey);
 }
@@ -136,7 +90,7 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  
+
    position: relative;
    display: inline-block;
    width: 3rem;
@@ -144,16 +98,16 @@ body {
 
    margin: 0;
    vertical-align: top;
-   background: #ffffff;
+   background: var(--white);
    border: 1px solid var(--black);
-   border-radius: 30px;
+   border-radius: 2rem;
    outline: none;
    cursor: pointer;
    transition: all 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
 }
 
 .toggle:focus {
-  box-shadow: 0 0 0px 1px var(--dark-grey);
+  box-shadow: 0 0 0px 1px var(--black);
 }
 
 .toggle[disabled] {
@@ -172,7 +126,7 @@ body {
   top: 1px;
   width: 1.3rem;
   height: 1.3rem;
-  background-color: var(--dark-grey);
+  background-color: var(--black);
   border-radius: 50%;
   transform: translateX(0);
   transition: all 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
@@ -180,10 +134,10 @@ body {
 
 .toggle:checked::after {
   transform: translateX(calc(100% + 1.5px));
-  background-color: var(--white);  
+  background-color: var(--white);
 }
 .toggle:checked {
-  background-color: var(--dark-grey);
+  background-color: var(--black);
 }
 
 
@@ -206,7 +160,7 @@ body {
 .form-field-text::placeholder {
   color: var(--grey);
   font-size: 0.95rem;
-  
+
 }
 
 .form-field-checkbox {
@@ -221,7 +175,7 @@ body {
   cursor: pointer;
   background: transparent;
   color: var(--dark-grey);
-  max-height: 2rem; 
+  max-height: 2rem;
 }
 
 .form-field-checkbox:hover {
@@ -239,7 +193,7 @@ body {
   left: 2px;
   content: "✔";
   width: 100%;
-  height: 100%; 
+  height: 100%;
   opacity: 0;
   transition: opacity 0.1s ease-out;
 }
@@ -283,7 +237,7 @@ body {
 .dropdown-menu input[type="checkbox"]:checked +  menu{
   display: block;
   transition: all 1s;
-  
+
 }
 
 .dropdown-menu menu {
@@ -297,7 +251,7 @@ body {
   border-radius: 5px;
   background: var(--white);
   transition: all 1s;
-  
+
 }
 
 .dropdown-menu a {

@@ -7,6 +7,7 @@ main {
   flex: 0 0 auto;
   justify-content: center;
   gap: 2rem;
+  background: var(--light-grey);
 }
 
 header {
@@ -84,8 +85,9 @@ form {
   width: 26.25rem;
   min-height: 16rem;
   padding: 1rem 2rem;
-  box-shadow: 0 0 5px 0 #000, 0 0 6px 0 #fff;
-  border-radius: 5px;
+  box-shadow: 0 0 0px 1px var(--grey);
+  border-radius: 1rem;
+  background: var(--white);
 }
 
 form h2 {

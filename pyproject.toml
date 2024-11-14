@@ -37,11 +37,15 @@ unsafe-fixes = true
 show-fixes = true
 line-length = 120
 lint.select = ["ALL"]
-lint.ignore = ["D1", "D203", "D213", "FA102", "ANN101", "ANN001", "Q000", "RUF001"]
+lint.ignore = [
+    "D1", "D203", "D213", "RUF012", "RUF002", "S311",
+    "ANN101", "ANN001", "ANN002", "ANN003", "ANN201",
+    "Q000", "RUF001",  "ARG002",  "RET503", "FA102",
+]
 
 [tool.ruff.format]
 quote-style = "single"
-exclude = ["manage.py", "**/migrations/*", "settings.py", "*sgi.py"]
+exclude = ["manage.py", "**/migrations/*",  "*/migrations/*", "migrations/*", "settings.py", "*sgi.py"]
 
 
 [tool.ruff.lint.isort]
@@ -50,4 +54,9 @@ known-third-party = ["django, pytest"]
 known-local-folder = ["tasksandboards"]
 
 [tool.ruff.lint.extend-per-file-ignores]
-"tests/*.py" = ["ANN401", "S101", "S311", "ANN201", "ANN001"]
+"tests/*.py" = ["ANN401", "S101", "S311", "ANN201", "ANN001", "ANN202", "ARG001"]
+"migrations/*" = ["E501"]
+"**/migrations/*" = ["E501"]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"

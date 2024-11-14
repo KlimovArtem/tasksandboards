@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i-1fcumm(y5xo=ct#k#uitjd@jz%u6a0bske@$iq=qz0_d8blr'
+SECRET_KEY = 'django-insecure-i-1fcumm(y5xo=ct#k#uitjd@jz%u6a0bske@$iq=qz0_d8blr'  # noqa: S105
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -134,10 +134,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / 'email_debug_log'
 
+AUTH_USER_MODEL = 'accounts.AccountUser'
 AUTHENTICATION_BACKENDS = [
-    "accounts.backends.EmailBackend",
+    'accounts.backends.EmailBackend',
 ]
 
 LOGIN_URL = 'accounts:login'
-LOGOUT_REDIRECT_UR = 'accounts:login'
-# LOGIN_REDIRECT_URL = 'core:start_page'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:success_login'
+
+SHORT_LENGTH_CHARFIELD = 50
+LONG_LENGTH_CHARFIELD = 150
