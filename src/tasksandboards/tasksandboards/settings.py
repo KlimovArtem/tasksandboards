@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_htmx',
     'corsheaders',
     'accounts.apps.AccountsConfig',
+    'boards.apps.BoardsConfig',
 ]
 
 MIDDLEWARE = [
