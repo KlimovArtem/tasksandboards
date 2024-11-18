@@ -1,0 +1,25 @@
+<header class="main-header ">
+    <nav>
+        <input type="checkbox" name="menu-switch" id="menu-switch" />
+        <label for="menu-switch" class="menu-btn">
+            <i class='bx bx-sidebar'></i>
+        </label>
+        <label for="menu-switch" class="menu-btn-cls">
+            <i class='bx bx-x'></i>
+        </label>
+        <aside>
+            <menu class="main-nav-menu">
+                <span hx-get="{% url 'boards:boards_list' %}" hx-trigger="revealed" hx-swap="outerHTML"></span>
+            </menu>
+            <div class="add-btn-layout">
+                <button class="btn add-btn">
+                    <i class='bx bx-plus-circle' ></i>
+                </button>
+            </div>
+        </aside>
+    </nav>
+    <section class="account-layout">
+      <a class="lnk" href="">{{ user }}</a>
+      <a class="lnk" href="{% url 'accounts:logout' %}">Выход</a>
+    </section>
+</header>

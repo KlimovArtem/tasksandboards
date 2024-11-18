@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'core/css/start_page.css' %}" />
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="content-layout">
+            <a href="" class="card">
+                <h2>Создать доску</h2>
+                <i class='bx bx-plus-circle' ></i>
+            </a>
+            <article class="card">
+                <h2>Настройки</h2>
+                <i class='bx bxs-cog'></i>
+            </article>
+            <article class="card">
+                <h2>Справка</h2>
+                <i class='bx bx-book-open'></i>
+            </article>
+            <article class="card">
+                <h2>Поддержка</h2>
+                <i class='bx bx-help-circle'></i>
+            </article>
+        </div>
+    </main>
+{% endblock %}

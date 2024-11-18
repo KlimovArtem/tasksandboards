@@ -13,7 +13,6 @@ class Board(models.Model):
         unique=True,
         blank=True,
         help_text=gettext_lazy('Только латинские буквы, цифры, `_`, `-`'),
-        index=True,
     )
     name = models.CharField(
         gettext_lazy('Название'),

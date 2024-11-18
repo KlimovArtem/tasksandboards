@@ -36,7 +36,7 @@ section {
 }
 
 /*Стилизация меню входа-регистрации*/
-menu {
+.login-menu {
   display: flex;
   justify-content: center;
   align-items: center;
