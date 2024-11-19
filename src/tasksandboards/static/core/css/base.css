@@ -23,6 +23,24 @@ body {
   background: var(--light-grey);
 }
 
+.errorlist {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.errorlist li {
+  width: 80%;
+  border: 1px solid var(--grey);
+  border-radius: .75rem;
+  background: var(--light-grey);
+  color: var(--grey);
+  margin-left: 2.6rem;
+  margin-bottom: .25;
+  padding: .25rem .5rem;
+  min-height: 3rem;
+}
+
 /* Стилизация элемента кнопки */
 .btn {
   all: unset;
