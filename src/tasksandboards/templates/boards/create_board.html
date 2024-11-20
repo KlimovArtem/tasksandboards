@@ -1,62 +1,19 @@
 {% extends "core/base.html" %}
 {% load static %}
-{% block extrastyle %}<link href="{% static "boards/css/create_board.html" %}" rel="stylesheet" {% endblock %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'boards/css/create_board.css' %}" />
+{% endblock %}
 {% block content %}
     <main>
-        <form>
-            <h1>Создание доски</h1>
-            <div class="input-wrapper">
-                <label for="name">Название</label>
-                <input class="form-field-text" type="text" name="name" maxlength="50">
-                <div class="row-breaker"></div>
-                {<ul class="errorlist">
-                    <li>Не допустимые символы! Только буквы, цифры и знаки припенания.</li>
-                    <li>Доска с таким именем уже существует!</li>
-                </ul>}
-            </div>
-            <div class="input-wrapper">
-                <label for="name" style="align-self: start;">Описание</label>
-                <textarea class="form-field-textarea" type="text"name="name" rows="6" cols="23" maxlength="100" wrap="soft"
-                >
-                </textarea>
-                <div class="row-breaker"></div>
-                <ul class="errorlist">
-                </ul>
-            </div>
-            <div class="add-cols-widget input-wrapper">
-                <label>Колонки</label>
-                <div class="row-breaker"></div>
-                <input class="form-field-text" type="text" name="cols" >
-                <div class="form-add-btn-layout">
-                    <button class="form-add-btn">
-                        <i class='bx bx-plus-circle'></i>
-                    </button>
+        <div class="content-layout">
+            <a hx-boost="false" href="{% url "boards:create_kanban" %}" class="card">
+                <div class="card-info">
+                    <p class="card-info-text">Канбан это система управления проектами основанная на колоночном макете.</p>
+                    <span>!</span>
                 </div>
-                <div class="row-breaker"></div>
-                <ul class="errorlist">
-                    <li>Колонка с таким именем уже существует!</li>
-                </ul>
-                <div class="row-breaker"></div>
-                <div class="cols-layout">
-                    <div class="cols-widget-col">
-                        <span>Сделать</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>В работе</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>На проверке</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>Сделано</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                </div>
-            </div>
-            <div class="form-btn-layout">
-                <button class="btn" type="submit">
-                    <span>Вход</span>
-                </button>
-            </div>
-        </form>
+                <h2>Канбан</h2>
+                <i class="bx bx-plus-circle" ></i>
+            </a>
+        </div>
     </main>
 {% endblock %}

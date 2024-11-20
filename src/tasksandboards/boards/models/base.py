@@ -34,6 +34,10 @@ class Board(models.Model):
         verbose_name=gettext_lazy('Владелец'),
         related_name='boards',
     )
+    created = models.DateTimeField(
+        gettext_lazy('Дата создания'),
+        auto_now_add=True,
+    )
 
     def __str__(self):
         return self.name

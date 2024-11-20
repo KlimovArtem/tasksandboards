@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -142,7 +143,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'accounts:success_login'
+LOGIN_REDIRECT_URL = 'start_page'
 
 SHORT_LENGTH_CHARFIELD = 50
 LONG_LENGTH_CHARFIELD = 150

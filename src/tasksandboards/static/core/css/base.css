@@ -24,21 +24,27 @@ body {
 }
 
 .errorlist {
+  all: unset;
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
+  width: 100%;
   list-style-type: none;
 }
 
 .errorlist li {
-  width: 80%;
+  display: block;
+  width: 100%;
   border: 1px solid var(--grey);
   border-radius: .75rem;
   background: var(--light-grey);
   color: var(--grey);
-  margin-left: 2.6rem;
-  margin-bottom: .25;
+  margin-bottom: .25rem;
   padding: .25rem .5rem;
   min-height: 3rem;
+}
+
+.errorlist:last-child {
+  margin-bottom: 0.25rem;
 }
 
 /* Стилизация элемента кнопки */
@@ -158,11 +164,41 @@ body {
   background-color: var(--black);
 }
 
+.form-field-textarea {
+  all: unset;
+  appearance: none;
+  min-width: 9rem;
+  padding: calc(1rem/3) 1rem;
+  border: 1.5px solid var(--black);
+  border-radius:  0.75rem;
+  background: transparent;
+  color: var(--dark-grey);
+  max-height: 4rem;
+  line-height: 1.4;
+  text-rendering: auto;
+  resize: none;
+  text-wrap: nowrap;
+  white-space-collapse: preserve;
+  overflow-wrap: break-word;
+  overflow-y: hidden;
+  flex-grow: 1;
+}
+
+.form-field-textarea:focus {
+  box-shadow: 0 0 0px 1px var(--dark-grey);
+}
+
+.form-field-textarea::placeholder {
+  color: var(--grey);
+  font-size: 0.95rem;
+
+}
 
 .form-field-text {
   all: unset;
   appearance: none;
   min-width: 9rem;
+  flex-grow: 1;
   padding: calc(1rem/3) 1rem;
   border: 1.5px solid var(--black);
   border-radius:  0.75rem;
@@ -495,4 +531,96 @@ aside {
 
 .add-btn:active {
   text-shadow: none
+}
+
+.row-breaker {
+  width: 100%;
+}
+
+.card {
+  all: unset;
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 1rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 100;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--white);
+  box-shadow: 0 0 3px 0px var(--dark-grey);
+}
+
+.card i {
+  font-size: 7rem;
+}
+
+.card:visited {
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover {
+  background: #262626;
+  color: #fff;
+  text-shadow: 0 0 4px #fff;
+  border: 1px solid transperent;
+}
+
+.card:focus {
+  box-shadow: 0 0 5px 0px #262626;
+}
+
+.card:active {
+  text-shadow: none
+}
+
+.card-info {
+  margin-left: auto;
+  position: absolute;
+  top: 2%;
+  left: 80%;
+  font-size: 2rem;
+  color: var(--white);
+  width: 2rem;
+  height: 2rem;
+  padding: 2px;
+}
+
+.card-info-text {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: -4.85rem;
+  left: -0.4rem;
+  width: 17rem;
+  font-size: 1rem;
+  padding: 8px;
+  color: var(--black);
+  box-shadow: 0 0 2px 0 var(--dark-grey);
+  border-radius: .75rem;
+  background: var(--white);
+  text-align: start;
+}
+
+.card-info-text::after {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 1rem;
+  bottom: -1.25rem;
+  border-top: 1rem solid transparent;
+  border-bottom: 1rem solid transparent;
+  border-left: 15px solid var(--white);
+  transform: rotate(0.25turn);
+}
+
+.card-info:hover .card-info-text {
+  display: block;
+  opacity: 1;
+  transition: opacity 2s ease-out;
 }

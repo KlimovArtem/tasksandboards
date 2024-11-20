@@ -30,10 +30,6 @@ class SigninView(HtmxOnlyMixin, BaseSigninView):
         return reverse_lazy('accounts:success_login')
 
 
-class SuccessLoginView(TemplateView):
-    template_name = 'accounts/success_login.html'
-
-
 class SignupView(HtmxOnlyMixin, CreateView):
     success_url = reverse_lazy('accounts:confirm_signup')
     form_class = SignupForm

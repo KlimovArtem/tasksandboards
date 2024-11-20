@@ -25,42 +25,5 @@ main {
   padding: 0.5rem;
   justify-content: center;
   align-items: center;
-}
-
-.card {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 200px;
-  height: 200px;
-  border: 1px solid #000;
-  border-radius: 1rem;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-weight: 100;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.card i {
-  font-size: 7rem;
-}
-
-.card:visited {
-  text-decoration: none;
-  color: inherit;
-}
-.card:hover {
-  background: #262626;
-  color: #fff;
-  text-shadow: 0 0 4px #fff;
-  border: 1px solid transperent;
-}
-
-.card:focus {
-  box-shadow: 0 0 5px 0px #262626;
-}
-
-.card:active {
-  text-shadow: none
+  background: var(--white);
 }

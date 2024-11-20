@@ -1,21 +1,21 @@
-from django.db.models import QuerySet
-from django.http import Http404
-from django.utils.translation import gettext_lazy
-from django.views.generic import TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, TemplateView, ListView
 
-from boards.models import *
+from accounts.views import HtmxOnlyMixin
+from boards.models.kanban import Kanban
 
 
-class BoardsList(ListView):
+class BoardsList(HtmxOnlyMixin, ListView):
     context_object_name = 'boards'
     template_name = 'boards/boards_list.html'
 
     def get_queryset(self):
-        boards = QuerySet()
-        for board in Board.__subclasses__():
-            boards.union(board.objects.all())
-        return ['Канбан', 'Блокнот']
+        return Kanban.objects.filter(owner=self.request.user)
 
+class CreateBoard(LoginRequiredMixin, TemplateView):
+    template_name = 'boards/create_board.html'
 
-class StartPageView(TemplateView):
-    template_name = 'core/start_page.html'
+class CreateKanban(LoginRequiredMixin, CreateView):
+    model = Kanban
+    template_name = 'boards/create_kanban.html'
+    fields = ['name', 'description',]
