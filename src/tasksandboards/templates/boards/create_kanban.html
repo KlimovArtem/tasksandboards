@@ -5,58 +5,24 @@
     <main>
         <form>
             <h1>Создание доски</h1>
+            {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
+            {% endif %}
+            {% for field in form %}
             <div class="input-wrapper">
-                <label for="name">Название</label>
-                <input class="form-field-text" type="text" name="name" maxlength="50">
+                <label for={{ field.id_for_label }}>{{ field.label }}</label>
+                {{ field }}
                 <div class="row-breaker"></div>
-                <ul class="errorlist">
-                    <li>Не допустимые символы! Только буквы, цифры и знаки припенания.</li>
-                    <li>Доска с таким именем уже существует!</li>
-                </ul>
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
             </div>
-            <div class="input-wrapper">
-                <label for="name" style="align-self: start;">Описание</label>
-                <textarea class="form-field-textarea" type="text"name="name" rows="6" cols="27" maxlength="100" wrap="soft"
-                >
-                </textarea>
-                <div class="row-breaker"></div>
-                <ul class="errorlist">
-                </ul>
-            </div>
-            <div class="input-wrapper">
-                <label>Колонки</label>
-                <div class="row-breaker"></div>
-                <input class="form-field-text" type="text" name="cols" >
-                <div class="form-add-btn-layout">
-                    <button class="form-add-btn">
-                        <i class='bx bx-plus-circle'></i>
-                    </button>
-                </div>
-                <div class="row-breaker"></div>
-                <ul class="errorlist">
-                    <li>Колонка с таким именем уже существует!</li>
-                </ul>
-                <div class="row-breaker"></div>
-                <div class="cols-layout">
-                    <div class="cols-widget-col">
-                        <span>Сделать</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>В работе</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>На проверке</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                    <div class="cols-widget-col">
-                        <span>Сделано</span><button class="add-cols-widget-dlt-btn">X</button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             <div class="form-btn-layout">
                 <button class="btn" type="submit">
                     <span>Сохранить</span>
                 </button>
-            </div>
+            </div> 
         </form>
     </main>
 {% endblock %}

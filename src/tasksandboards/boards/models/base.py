@@ -33,6 +33,7 @@ class Board(models.Model):
         on_delete=models.CASCADE,
         verbose_name=gettext_lazy('Владелец'),
         related_name='boards',
+        blank=True,
     )
     created = models.DateTimeField(
         gettext_lazy('Дата создания'),

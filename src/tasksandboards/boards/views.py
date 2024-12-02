@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.transaction import commit
 from django.views.generic import CreateView, TemplateView, ListView
 
 from accounts.views import HtmxOnlyMixin
+from boards.forms import CreateKanbanForm, ColumnFormset
 from boards.models.kanban import Kanban
 
 
@@ -18,4 +20,12 @@ class CreateBoard(LoginRequiredMixin, TemplateView):
 class CreateKanban(LoginRequiredMixin, CreateView):
     model = Kanban
     template_name = 'boards/create_kanban.html'
-    fields = ['name', 'description',]
+    form_class = CreateKanbanForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        data = kwargs.get('data', {})
+        data.update({'owner': self.request.user})
+        kwargs['data'] = data
+        return kwargs
+
