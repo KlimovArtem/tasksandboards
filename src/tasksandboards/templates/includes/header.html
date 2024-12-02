@@ -20,6 +20,6 @@
     </nav>
     <section class="account-layout">
       <a class="lnk" href="">{{ user }}</a>
-      <a class="lnk" href="{% url 'accounts:logout' %}">Выход</a>
+      <a class="lnk" hx-boost="false" href="{% url 'accounts:logout' %}">Выход</a>
     </section>
 </header>

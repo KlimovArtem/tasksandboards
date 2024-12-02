@@ -14,7 +14,8 @@ class HtmxOnlyMixin:
 
     def dispatch(self, request, *args, **kwargs):
         if not request.htmx:
-            raise PermissionDenied('Ресурс только для внутреннего пользования.')
+            msg = 'Ресурс только для внутреннего пользования.'
+            raise PermissionDenied(msg)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -27,7 +28,7 @@ class SigninView(HtmxOnlyMixin, BaseSigninView):
     template_name = 'accounts/signin.html'
 
     def get_success_url(self) -> str:
-        return reverse_lazy('accounts:success_login')
+        return reverse_lazy('start_page')
 
 
 class SignupView(HtmxOnlyMixin, CreateView):
@@ -59,7 +60,6 @@ class ConfirmSignupView(HtmxOnlyMixin, FormView):
         )
         return super().get(request, *args, **kwargs)
 
-
     def form_valid(self, form):
         user = get_user_model().objects.get(email=self.request.session['user_email'])
         user.is_active = True
@@ -69,5 +69,5 @@ class ConfirmSignupView(HtmxOnlyMixin, FormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["request"] = self.request
+        kwargs['request'] = self.request
         return kwargs

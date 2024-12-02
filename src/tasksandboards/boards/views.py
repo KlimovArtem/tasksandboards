@@ -1,9 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.transaction import commit
-from django.views.generic import CreateView, TemplateView, ListView
-
 from accounts.views import HtmxOnlyMixin
-from boards.forms import CreateKanbanForm, ColumnFormset
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, ListView, TemplateView
+
+from boards.forms import ColumnsWidget, CreateKanbanForm
 from boards.models.kanban import Kanban
 
 
@@ -14,8 +13,10 @@ class BoardsList(HtmxOnlyMixin, ListView):
     def get_queryset(self):
         return Kanban.objects.filter(owner=self.request.user)
 
+
 class CreateBoard(LoginRequiredMixin, TemplateView):
     template_name = 'boards/create_board.html'
+
 
 class CreateKanban(LoginRequiredMixin, CreateView):
     model = Kanban
@@ -29,3 +30,7 @@ class CreateKanban(LoginRequiredMixin, CreateView):
         kwargs['data'] = data
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['formset'] = ColumnsWidget()
+        return data

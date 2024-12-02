@@ -4,7 +4,7 @@ main {
     align-items: center;
     color: var(--black);
   }
-  
+
 form {
   display:flex;
   justify-content: center;
@@ -45,4 +45,108 @@ h1 {
   padding: 1rem;
 }
 
-  
+.cols-widget {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cols-widget input {
+  margin-right: 0.5rem;
+}
+
+.cols-widget .row-breaker {
+  margin: 0.5rem 0;
+}
+
+.cols-widget .add-col-btn {
+  min-width: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  transform: translateY(2px);
+}
+
+.cols-layout {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  width: 100%;
+  min-height: 6rem;
+  background: #f4f4f4;
+  border: 1px solid var(--black);
+  border-radius: 1rem;
+  padding: 2px;
+  gap: 0.2rem 0;
+}
+
+.col {
+  all: unset;
+  display: flex;
+  flex-wrap: nowrap;
+  background: var(--white);
+  height: 2rem;
+  border-radius: 14px;
+  align-items: center;
+  padding: 0rem 0rem;
+  border: 0.5px solid var(--grey);
+}
+
+.col-name {
+  all: unset;
+  border: none;
+  height: 2rem;
+  flex-grow: 1;
+  flex-shrink: 0;
+  text-align: center;
+  background: transparent;
+}
+
+.col-pos {
+  all: unset;
+  border: none;
+  height: 2rem;
+  flex-grow: 0;
+  flex-shrink: 1;
+  text-align: center;
+  background: transparent;
+  width: 1rem;
+}
+
+.col-order-btns-layout {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-left: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.col-order-btns-layout .btn {
+  height: 0.5rem;
+  min-width: 0px;
+  width: 100%;
+  border-radius: 0;
+  font-size: 0.5rem;
+}
+
+.col-order-btns-layout .btn[data-cols-widget-down-col-btn=""] {
+  background: linear-gradient(var(--black) 65%, var(--dark-grey) 99%);
+}
+
+.del-col-btn {
+  height: 2rem;
+  border-radius: 0px 14px 14px 0px;
+  width: 2rem;
+  min-width: 0;
+  font-family: monospace;
+  background: linear-gradient(var(--dark-grey) 15%, var(--black) 65%), linear-gradient(var(--black) 65%, var(--dark-grey) 99%);
+}
+
+.del-col-btn:hover {
+  text-shadow: 0 0 3px var(--white);
+}
+
+.col-order-btns-layout .btn:hover {
+  text-shadow: 0 0 3px var(--white);
+}
