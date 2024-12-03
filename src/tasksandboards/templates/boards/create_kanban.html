@@ -5,10 +5,10 @@
     <main>
         <form>
             <h1>Создание доски</h1>
-            {% if form.non_field_errors %}
-                {{ form.non_field_errors }}
+            {% if board_form.non_field_errors %}
+                {{ board_form.non_field_errors }}
             {% endif %}
-            {% for field in form %}
+            {% for field in board_form %}
             <div class="input-wrapper">
                 <label for={{ field.id_for_label }}>{{ field.label }}</label>
                 {{ field }}
@@ -18,7 +18,7 @@
                 {% endif %}
             </div>
             {% endfor %}
-            {{ formset }}
+            {{ columns_form.as_div }}
             <div class="form-btn-layout">
                 <button class="btn" type="submit">
                     <span>Сохранить</span>
