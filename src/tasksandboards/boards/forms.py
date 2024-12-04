@@ -23,7 +23,7 @@ ColumnsWidget = forms.inlineformset_factory(
     Column,
     form=ColumnForm,
     formset=ColumnFormset,
-    extra=1
+    extra=1,
 )
 
 
