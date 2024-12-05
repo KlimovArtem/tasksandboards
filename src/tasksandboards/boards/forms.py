@@ -7,6 +7,7 @@ from boards.models.kanban import Column
 
 class ColumnForm(forms.ModelForm):
     class Meta:
+        model= Column
         fields = ['name', 'position']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'col-name', 'readonly': True}),
@@ -14,16 +15,10 @@ class ColumnForm(forms.ModelForm):
         }
 
 
-class ColumnFormset(forms.BaseInlineFormSet):
-    template_name_div = 'boards/columns_widget.html'
-
-
-ColumnsWidget = forms.inlineformset_factory(
-    Kanban,
+ColumnFormset = forms.modelformset_factory(
     Column,
     form=ColumnForm,
-    formset=ColumnFormset,
-    extra=1,
+    extra=0,
 )
 
 

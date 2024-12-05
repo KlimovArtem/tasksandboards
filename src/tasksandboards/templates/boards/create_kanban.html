@@ -3,12 +3,12 @@
 {% block extrastyle %}<link href="{% static "boards/css/create_kanban.css" %}" rel="stylesheet"/>{% endblock %}
 {% block content %}
     <main>
-        <form>
+        <form action="{% url "boards:create_kanban" %}" method="post">
             <h1>Создание доски</h1>
-            {% if board_form.non_field_errors %}
-                {{ board_form.non_field_errors }}
+            {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
             {% endif %}
-            {% for field in board_form %}
+            {% for field in form %}
             <div class="input-wrapper">
                 <label for={{ field.id_for_label }}>{{ field.label }}</label>
                 {{ field }}
@@ -18,7 +18,37 @@
                 {% endif %}
             </div>
             {% endfor %}
-            {{ columns_form.as_div }}
+            <div class="input-wrapper">
+                {% comment %} {% for field in formset.management_form %}
+                    {% if field.errors %}
+                        {{ field }}
+                    {% endif %}
+                {% endfor %} {% endcomment %}
+                {{ formset.management_form }}
+                <div class="cols-widget" data-cols-widget>
+                    <label>Коллонки</label>
+                    <div class="row-breaker"></div>
+                    <input class="form-field-text" type="text" data-cols-widget-input>
+                    <button type="button" class="btn" data-cols-widget-add-col-btn>Добавить</button>
+                    <div class="row-breaker"></div>
+                    <div class="cols-layout" data-cols-widget-output>
+                        {% for form in formset %}
+                            {% if form %}
+                                <fieldset name="col" class="col">
+                                    {{ form.name }}
+                                    {{ form.position }}
+                                    <div class="col-order-btns-layout">
+                                        <button type="button" class="btn" data-cols-widget-up-col-btn>▲</button>
+                                        <button type="button" class="btn" data-cols-widget-down-col-btn>▼</button>
+                                    </div>
+                                    <button type="button" class="btn del-col-btn" data-cols-widget-del-col-btn>X</button>
+                                </fieldset>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <script src="{% static "boards/js/columns_widget.js" %}" defer></script>
+                </div>
+            </div>
             <div class="form-btn-layout">
                 <button class="btn" type="submit">
                     <span>Сохранить</span>

@@ -1,5 +1,5 @@
 var cols_list = [];
-
+var django_total_form = document.getElementById("id_column-TOTAL_FORMS")
 var add_col_btn = document.querySelector("[data-cols-widget-add-col-btn]");
 add_col_btn.addEventListener("click", addCol);
 
@@ -33,11 +33,11 @@ function addCol() {
 
   cols_list.push(input.value);
   const col_position = cols_list.indexOf(input.value);
-  const col = document.createElement("fieldset");
+  const col = document.createElement("div");
   col.setAttribute("class", "col");
-  col.setAttribute("name", "cols");
-  col.innerHTML = `<input type="text"  name="col_name" class="col-name" value="${input.value}" readonly><input class="col-pos" name="col_pos" value=${col_position} readonly><div class="col-order-btns-layout"><button class="btn" data-cols-widget-up-col-btn>▲</button><button class="btn" data-cols-widget-down-col-btn>▼</button></div><button class="del-col-btn btn" data-cols-widget-del-col-btn>X</button>`;
+  col.innerHTML = `<input type="text"  name="column_${col_position}_name" class="col-name" value="${input.value}" readonly><input class="col-pos" name="column_${col_position}_position" value=${col_position} readonly><div class="col-order-btns-layout"><button type="button" class="btn" data-cols-widget-up-col-btn>▲</button><button type="button" class="btn" data-cols-widget-down-col-btn>▼</button></div><button type="button" class="del-col-btn btn" data-cols-widget-del-col-btn>X</button>`;
   output.append(col);
+  django_total_form.value = cols_list.length
   input.value = "";
 }
 
@@ -54,6 +54,7 @@ document.querySelector("[data-cols-widget-output]").addEventListener('click', fu
     const target = event.target.parentElement;
     cols_list.splice(cols_list.indexOf(target.querySelector("[name='col_name']").value), 1);
     target.remove();
+    django_total_form.value = cols_list.length
     updateColsPosition();
   }
   if (event.target.hasAttribute("data-cols-widget-up-col-btn")) {
