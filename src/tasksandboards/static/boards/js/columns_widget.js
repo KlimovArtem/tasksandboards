@@ -35,7 +35,7 @@ function addCol() {
   const col_position = cols_list.indexOf(input.value);
   const col = document.createElement("div");
   col.setAttribute("class", "col");
-  col.innerHTML = `<input type="text"  name="column_${col_position}_name" class="col-name" value="${input.value}" readonly><input class="col-pos" name="column_${col_position}_position" value=${col_position} readonly><div class="col-order-btns-layout"><button type="button" class="btn" data-cols-widget-up-col-btn>▲</button><button type="button" class="btn" data-cols-widget-down-col-btn>▼</button></div><button type="button" class="del-col-btn btn" data-cols-widget-del-col-btn>X</button>`;
+  col.innerHTML = `<input type="text"  name="column-${col_position}-name" class="col-name" value="${input.value}" readonly><input class="col-pos" name="column-${col_position}-position" value=${col_position} readonly><div class="col-order-btns-layout"><button type="button" class="btn" data-cols-widget-up-col-btn>▲</button><button type="button" class="btn" data-cols-widget-down-col-btn>▼</button></div><button type="button" class="del-col-btn btn" data-cols-widget-del-col-btn>X</button>`;
   output.append(col);
   django_total_form.value = cols_list.length
   input.value = "";

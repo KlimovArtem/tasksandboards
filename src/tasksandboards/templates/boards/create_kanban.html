@@ -34,7 +34,7 @@
                     <div class="cols-layout" data-cols-widget-output>
                         {% for form in formset %}
                             {% if form %}
-                                <fieldset name="col" class="col">
+                                <div class="col">
                                     {{ form.name }}
                                     {{ form.position }}
                                     <div class="col-order-btns-layout">
@@ -42,7 +42,7 @@
                                         <button type="button" class="btn" data-cols-widget-down-col-btn>▼</button>
                                     </div>
                                     <button type="button" class="btn del-col-btn" data-cols-widget-del-col-btn>X</button>
-                                </fieldset>
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
