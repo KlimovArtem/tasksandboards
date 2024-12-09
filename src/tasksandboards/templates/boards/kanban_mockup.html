@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block extrastyle %}<link href="{% static "boards/css/kanban_mockup.css" %}" rel="stylesheet"/>{% endblock %}
+{% block content %}
+<section class="calendar-switcher-layout">
+    <menu>
+        <li><a href="" class="calendar-switcher-btn-active btn"><span>Доска</span></a></li>
+        <li><a href="" class="calendar-switcher-btn-notactive btn "><span>Календарь</span></a></li>
+    </menu>
+</section>
+<main>
+    {% for column in board.columns %}
+        <section class="col-layout">
+            <header class="col-header">
+                <h2>{{ column.name }}<h2>
+            </header>
+            <div class="task-card-layout">
+                <article class="task-card">
+                    <header class="task-card-header">
+                        <h3>Загаловок карточки</h3>
+                        <span><i class='bx bxs-edit-alt'></i></span>
+                    </header>
+                    <p class="task-card-body">Управление каким-либо объектом — это процесс воздействия на него
+    с целью обеспечения требуемого течения процессов в объекте или требуемо-
+    го изменения его состояния. Основой управления является...</p>
+                </article>
+                <article class="task-card">
+                    <header class="task-card-header">
+                        <h3>Загаловок карточки</h3>
+                        <span><i class='bx bxs-edit-alt'></i></span>
+                    </header>
+                    <p class="task-card-body">Управление каким-либо объектом — это процесс воздействия на него
+    с целью обеспечения требуемого течения процессов в объекте или требуемо-
+    го изменения его состояния. Основой управления является...</p>
+                </article>
+            </div>
+        </section>
+    {% endfor %}
+</main>
+{% endblock %}

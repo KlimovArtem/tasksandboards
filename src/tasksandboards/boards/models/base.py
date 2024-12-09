@@ -11,14 +11,12 @@ class Board(models.Model):
         gettext_lazy('Слаг'),
         primary_key=True,
         unique=True,
-        blank=True,
         help_text=gettext_lazy('Только латинские буквы, цифры, `_`, `-`'),
     )
     name = models.CharField(
         gettext_lazy('Название'),
         max_length=settings.SHORT_LENGTH_CHARFIELD,
         unique=True,
-        blank=True,
         help_text=gettext_lazy('Только буквы и цифры'),
     )
     description = models.TextField(
@@ -26,14 +24,13 @@ class Board(models.Model):
         max_length=settings.LONG_LENGTH_CHARFIELD,
         help_text=gettext_lazy('Только буквы, цифры и знаки припенания'),
         blank=True,
-        null=True,
+        default='',
     )
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
         verbose_name=gettext_lazy('Владелец'),
         related_name='boards',
-        blank=True,
     )
     created = models.DateTimeField(
         gettext_lazy('Дата создания'),

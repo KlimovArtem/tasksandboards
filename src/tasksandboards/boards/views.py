@@ -26,7 +26,7 @@ class CreateKanban(LoginRequiredMixin, CreateView):
     model = Kanban
     template_name = 'boards/create_kanban.html'
     form_class = CreateKanbanForm
-    success_url = reverse_lazy('success')
+    success_url = reverse_lazy('start_page')
 
     def get_context_data(self, **kwargs):
         if 'formset' not in kwargs:
@@ -55,3 +55,7 @@ class CreateKanban(LoginRequiredMixin, CreateView):
     
     def form_invalid(self, form, formset):
         return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+
+class BoardContentView(TemplateView):
+    template_name = 'boards/kanban_mockup.html'

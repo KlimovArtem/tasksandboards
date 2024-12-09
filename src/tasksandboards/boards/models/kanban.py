@@ -1,13 +1,16 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy
 
 from boards.models.base import Board
 
 
 class Kanban(Board):
-    pass
-
+    
+    def get_absolute_url(self):
+        return reverse_lazy("boards:board_tasks", kwargs={"board_slug": self.slug})
+    
 
 class Column(models.Model):
     name = models.CharField(
@@ -25,7 +28,6 @@ class Column(models.Model):
 
     class Meta:
         ordering = ['position']
-
 
 # class Tasks(models.Model):
 #     title = models.CharField(

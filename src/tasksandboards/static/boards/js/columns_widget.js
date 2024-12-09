@@ -44,7 +44,7 @@ function addCol() {
 function updateColsPosition(){
   const output = document.querySelector("[data-cols-widget-output]");
   for (col of output.children) {
-    col.querySelector('[name="col_pos"]').value = cols_list.indexOf(col.querySelector('[name="col_name"]').value);
+    col.querySelector(".col-pos").value = cols_list.indexOf(col.querySelector(".col-name").value);
   }
 
 }
@@ -52,29 +52,29 @@ function updateColsPosition(){
 document.querySelector("[data-cols-widget-output]").addEventListener('click', function(event) {
   if (event.target.hasAttribute("data-cols-widget-del-col-btn")) {
     const target = event.target.parentElement;
-    cols_list.splice(cols_list.indexOf(target.querySelector("[name='col_name']").value), 1);
+    cols_list.splice(cols_list.indexOf(target.querySelector(".col-name").value), 1);
     target.remove();
     django_total_form.value = cols_list.length
     updateColsPosition();
   }
   if (event.target.hasAttribute("data-cols-widget-up-col-btn")) {
     const target = event.target.parentElement.parentElement;
-    const pop_item_index = target.querySelector("[name='col_pos']").value;
+    const pop_item_index = target.querySelector(".col-pos").value;
     if (pop_item_index == 0) {
       return
     }
-    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector("[name='col_name']").value), 1)[0];
+    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector(".col-name").value), 1)[0];
     cols_list.splice((pop_item_index - 1), 0, pop_item);
     target.previousSibling.before(target);
     updateColsPosition();
   }
   if (event.target.hasAttribute("data-cols-widget-down-col-btn")) {
     const target = event.target.parentElement.parentElement;
-    const pop_item_index = target.querySelector("[name='col_pos']").value;
+    const pop_item_index = target.querySelector(".col-pos").value;
     if (pop_item_index == (cols_list.length-1)) {
       return
     }
-    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector("[name='col_name']").value), 1)[0];
+    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector(".col-name").value), 1)[0];
     cols_list.splice((pop_item_index + 1), 0, pop_item);
     target.nextSibling.after(target);
     updateColsPosition();

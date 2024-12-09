@@ -1,0 +1,100 @@
+main {
+  display: flex;
+  min-width: 5rem;
+  height: 90vh;
+  width: 97%;
+  background: var(--white);
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem;
+  gap: 0 1rem;
+  margin: 0 3rem;
+  justify-content: space-evenly;
+}
+
+.calendar-switcher-layout {
+  display: flex;
+  margin: 3rem auto 1.5rem 6rem;
+  align-items: center;
+}
+
+.calendar-switcher-layout menu {
+  display: flex;
+  list-style-type: none;
+  color: var(--dark-grey);
+}
+
+.calendar-switcher-layout menu li {
+  display: flex;
+}
+
+
+.calendar-switcher-btn-active {
+  color: var(--white);
+  background: var(--black);
+  font-weight: 600;
+}
+
+.calendar-switcher-btn-active:hover {
+  text-shadow: none;
+}
+
+.calendar-switcher-btn-notactive {
+  color: var(--dark-grey);
+  background: none;
+  font-weight: 600;
+}
+
+.col-layout {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  flex: 0.3 0 10rem;
+  justify-content: center;
+}
+
+.col-header {
+  padding: 0.5rem 0 1rem 0;
+}
+
+.col-header h2 {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.task-card-header {
+  display: flex;
+}
+
+.task-card-header h3 {
+  font-size: 1rem;
+}
+
+.task-card-header span {
+  margin-left: auto;
+  background: #f4f4f4;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+
+
+.task-card-layout {
+  background: #f4f4f4;
+  border-radius: 1.25rem;
+  padding: 0.25rem;
+  height: 100%;
+  overflow-y: hidden;
+  
+}
+
+
+.task-card {
+  min-width: 225px;
+  min-height: 10rem;
+  background: var(--white);
+  border-radius: 1rem;
+  margin-bottom: 0.25rem;
+  box-shadow: 0 0 1px 0 var(--grey);
+  padding: 0.5rem;
+  flex: 0.3rem 0 9.9rem;
+}

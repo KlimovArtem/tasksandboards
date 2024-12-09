@@ -14,10 +14,15 @@
   font-family: Arial;
 }
 
+html {
+  min-width: 5rem;
+}
+
 body {
   display: flex;
   flex-flow: column nowrap;
   min-height: 100vh;
+  min-width: 5rem;
   justify-content: center;
   align-items: center;
   background: var(--light-grey);
