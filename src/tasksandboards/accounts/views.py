@@ -29,11 +29,13 @@ class SigninView(HtmxOnlyMixin, BaseSigninView):
 
     def get_success_url(self) -> str:
         return reverse_lazy('start_page')
-    
+
     def form_valid(self, form):
         response = super().form_valid(form)
-        response.headers['HX-Redirect'] = self.get_success_url()
+        response.status_code = 200
+        response.headers['HX-Redirect'] = response.headers.get('location')
         return response
+
 
 class SignupView(HtmxOnlyMixin, CreateView):
     success_url = reverse_lazy('accounts:confirm_signup')

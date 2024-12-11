@@ -1,6 +1,6 @@
 from django.urls import path
 
-from boards.views import BoardsList, CreateBoard, CreateKanban, BoardContentView
+from boards.views import BoardContentView, BoardsList, CreateBoard, CreateKanban
 
 
 app_name = 'boards'

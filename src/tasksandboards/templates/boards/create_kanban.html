@@ -4,6 +4,7 @@
 {% block content %}
     <main>
         <form action="{% url "boards:create_kanban" %}" method="post">
+            {% csrf_token %}
             <h1>Создание доски</h1>
             {% if form.non_field_errors %}
                 {{ form.non_field_errors }}
@@ -19,11 +20,6 @@
             </div>
             {% endfor %}
             <div class="input-wrapper">
-                {% comment %} {% for field in formset.management_form %}
-                    {% if field.errors %}
-                        {{ field }}
-                    {% endif %}
-                {% endfor %} {% endcomment %}
                 {{ formset.management_form }}
                 <div class="cols-widget" data-cols-widget>
                     <label>Коллонки</label>

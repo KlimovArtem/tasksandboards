@@ -63,7 +63,7 @@ document.querySelector("[data-cols-widget-output]").addEventListener('click', fu
     if (pop_item_index == 0) {
       return
     }
-    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector(".col-name").value), 1)[0];
+    const pop_item = cols_list.splice(pop_item_index, 1)[0];
     cols_list.splice((pop_item_index - 1), 0, pop_item);
     target.previousSibling.before(target);
     updateColsPosition();
@@ -74,7 +74,7 @@ document.querySelector("[data-cols-widget-output]").addEventListener('click', fu
     if (pop_item_index == (cols_list.length-1)) {
       return
     }
-    const pop_item = cols_list.splice(cols_list.indexOf(target.querySelector(".col-name").value), 1)[0];
+    const pop_item = cols_list.splice(pop_item_index, 1)[0];
     cols_list.splice((pop_item_index + 1), 0, pop_item);
     target.nextSibling.after(target);
     updateColsPosition();

@@ -1,4 +1,3 @@
-from dataclasses import field
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import BaseUserCreationForm
@@ -87,8 +86,9 @@ class SignupForm(BaseUserCreationForm):
         fields = [
             'email',
             'password1',
-            'password2'
+            'password2',
         ]
+
 
 class ConfirmSignupForm(forms.Form):
     def __init__(self, request=None, *args, **kwargs) -> None:
@@ -96,7 +96,7 @@ class ConfirmSignupForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     error_messages = {
-        "wrong_code": gettext_lazy("Wrong confirm code."),
+        'wrong_code': gettext_lazy('Wrong confirm code.'),
     }
 
     num1 = forms.CharField(
@@ -132,5 +132,5 @@ class ConfirmSignupForm(forms.Form):
             raise ValidationError(
                 self.error_messages['wrong_code'],
                 code='wrong_code',
-        )
+            )
         return super().clean()

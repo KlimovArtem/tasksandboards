@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy
-
 from pytils.translit import slugify
 
 
@@ -37,14 +36,13 @@ class Board(models.Model):
         auto_now_add=True,
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
-    
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
-
 
     class Meta:
         abstract = True

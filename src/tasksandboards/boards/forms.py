@@ -7,7 +7,7 @@ from boards.models.kanban import Column
 
 class ColumnForm(forms.ModelForm):
     class Meta:
-        model= Column
+        model = Column
         fields = ['name', 'position']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'col-name', 'readonly': True}),

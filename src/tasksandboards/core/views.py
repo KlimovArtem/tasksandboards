@@ -7,6 +7,6 @@ class StartPageView(LoginRequiredMixin, TemplateView):
 
 
 class SuccessView(TemplateView):
-    """View for test success form"""
+    """View for test success form."""
 
     template_name = 'core/success.html'

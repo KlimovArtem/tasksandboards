@@ -28,10 +28,10 @@ class TestSignup:
     SIGNUP_URL = reverse_lazy('accounts:signup')
     CONFIRM_SIGNUP_URL = reverse_lazy('accounts:confirm_signup')
     VALID_DATA = {
-            'email': 'testuser@email.com',
-            'password1': 'secret_password',
-            'password2': 'secret_password',
-        }
+        'email': 'testuser@email.com',
+        'password1': 'secret_password',
+        'password2': 'secret_password',
+    }
 
     def test_non_htmx_request(self, client):
         response = client.get(TestSignup.SIGNUP_URL)
@@ -126,7 +126,7 @@ class TestSignup:
         session['user_email'] = 'testuser@email.com'
         session.save()
         outbox_before_count = len(mail.outbox)
-        response = client.get(
+        client.get(
             TestSignup.CONFIRM_SIGNUP_URL,
             headers={'HX-Request': 'true'},
         )
@@ -142,21 +142,23 @@ class TestSignup:
 
     @pytest.mark.django_db(transaction=True)
     def test_confirm_signup(self, client, django_user_model):
-        user = django_user_model.objects.create_user(email='testuser@email.com', password='secret')
+        django_user_model.objects.create_user(email='testuser@email.com', password='secret')
         session = client.session
         session['confirm_code'] = '1111'
         session['user_email'] = 'testuser@email.com'
         session.save()
         response = client.post(
             TestSignup.CONFIRM_SIGNUP_URL,
-            data={'num1': '1', 'num2': '1', 'num3': '1', 'num4': '1',},
-            headers = {'HX-Request': 'true'},
+            data={'num1': '1', 'num2': '1', 'num3': '1', 'num4': '1'},
+            headers={'HX-Request': 'true'},
         )
 
         assert (
             response.status_code == HTTPStatus.FOUND
-            ), 'После успешного подтверждения аккаунта пользователь не перенаправляется на страницу входа.'
-        assert django_user_model.objects.get(email='testuser@email.com').is_active, 'При вводе коректных данных аккаунт не становится активным.'
+        ), 'После успешного подтверждения аккаунта пользователь не перенаправляется на страницу входа.'
+        assert django_user_model.objects.get(
+            email='testuser@email.com',
+        ).is_active, 'При вводе коректных данных аккаунт не становится активным.'
 
 
 class TestSignin:
@@ -187,7 +189,6 @@ class TestSignin:
 
     @pytest.mark.django_db(transaction=True)
     def test_ivalid_data_signin(self, client, django_user_model):
-
         user = django_user_model.objects.create_user(email='usertest@emal.com', password='secret')
         not_active_signin = client.post(
             TestSignin.SIGNIN_URL,
@@ -197,8 +198,12 @@ class TestSignin:
             },
             headers={'HX-Request': 'true'},
         )
-        assert not_active_signin.status_code != HTTPStatus.FOUND, 'Пользователь входит в сисему с не правильными данными.'
-        assert '__all__' in not_active_signin.context_data['form'].errors, 'Пользователь не видит сообщение о том что его аккаунт не активен.'
+        assert (
+            not_active_signin.status_code != HTTPStatus.FOUND
+        ), 'Пользователь входит в сисему с не правильными данными.'
+        assert (
+            '__all__' in not_active_signin.context_data['form'].errors
+        ), 'Пользователь не видит сообщение о том что его аккаунт не активен.'
         user.is_active
         user.save()
 
@@ -210,8 +215,12 @@ class TestSignin:
             },
             headers={'HX-Request': 'true'},
         )
-        assert not_active_signin.status_code != HTTPStatus.FOUND, 'Пользователь входит в сисему с не правильными данными.'
-        assert '__all__' in invalid_data_signin.context_data['form'].errors, 'Пользователь не видит сообщение о том что введены не правильные данные'
+        assert (
+            not_active_signin.status_code != HTTPStatus.FOUND
+        ), 'Пользователь входит в сисему с не правильными данными.'
+        assert (
+            '__all__' in invalid_data_signin.context_data['form'].errors
+        ), 'Пользователь не видит сообщение о том что введены не правильные данные'
 
     def test_signin_context(self, client):
         response = client.get(TestSignin.SIGNIN_URL, headers={'HX-Request': 'true'})
@@ -250,7 +259,9 @@ class TestSignin:
 
         assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс `accounts/signin/` не найден, проверь *urls.py*.'
         assert response.status_code == HTTPStatus.FOUND, 'Корректный запрос не возвращает код 302.'
-        assert response.wsgi_request.user.is_authenticated, 'При отправке корректных данных пользователь не был авторизован.'
+        assert (
+            response.wsgi_request.user.is_authenticated
+        ), 'При отправке корректных данных пользователь не был авторизован.'
         user.delete()
 
 
@@ -269,4 +280,3 @@ class TestLogout:
         assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс `accounts/logout/` не найден, проверь *urls.py*.'
         assert response.status_code == HTTPStatus.FOUND, 'Корректный запрос возвращает код 302.'
         assert response.wsgi_request.user.is_anonymous, 'При корректном запросе пользователь не вышел из системы.'
-
