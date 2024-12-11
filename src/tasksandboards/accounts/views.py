@@ -29,7 +29,11 @@ class SigninView(HtmxOnlyMixin, BaseSigninView):
 
     def get_success_url(self) -> str:
         return reverse_lazy('start_page')
-
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        response.headers['HX-Redirect'] = self.get_success_url()
+        return response
 
 class SignupView(HtmxOnlyMixin, CreateView):
     success_url = reverse_lazy('accounts:confirm_signup')
@@ -39,7 +43,9 @@ class SignupView(HtmxOnlyMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save()
         self.request.session['user_email'] = self.object.email
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        response.status_code = 303
+        return response
 
 
 class ConfirmSignupView(HtmxOnlyMixin, FormView):
@@ -65,7 +71,9 @@ class ConfirmSignupView(HtmxOnlyMixin, FormView):
         user.is_active = True
         user.save()
         self.request.session['user_email'] = ''
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        response.status_code = 303
+        return response
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
