@@ -9,13 +9,13 @@
     </menu>
 </section>
 <main>
-    {% for column in board.columns %}
+    {% for column in board.columns.all %}
         <section class="col-layout">
             <header class="col-header">
                 <h2>{{ column.name }}<h2>
             </header>
             <div class="task-card-layout">
-                <article class="task-card">
+                {% comment %} <article class="task-card">
                     <header class="task-card-header">
                         <h3>Загаловок карточки</h3>
                         <span><i class='bx bxs-edit-alt'></i></span>
@@ -32,7 +32,7 @@
                     <p class="task-card-body">Управление каким-либо объектом — это процесс воздействия на него
     с целью обеспечения требуемого течения процессов в объекте или требуемо-
     го изменения его состояния. Основой управления является...</p>
-                </article>
+                </article> {% endcomment %}
             </div>
         </section>
     {% endfor %}

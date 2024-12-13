@@ -1,8 +1,8 @@
-from accounts.views import HtmxOnlyMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
+from accounts.views import HtmxOnlyMixin
 from boards.forms import ColumnFormset, CreateKanbanForm
 from boards.models.kanban import Column, Kanban
 
@@ -12,7 +12,7 @@ class BoardsList(HtmxOnlyMixin, ListView):
     template_name = 'boards/boards_list.html'
 
     def get_queryset(self):
-        return Kanban.objects.filter(owner=self.request.user)
+        return Kanban.objects.filter(owner=self.request.user).values('slug', 'name')
 
 
 class CreateBoard(LoginRequiredMixin, TemplateView):
@@ -52,5 +52,11 @@ class CreateKanban(LoginRequiredMixin, CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class BoardContentView(TemplateView):
+class BoardContentView(LoginRequiredMixin, DetailView):
     template_name = 'boards/kanban_mockup.html'
+    context_object_name = 'board'
+    slug_url_kwarg = 'board_slug'
+
+    def get_queryset(self):
+        queryset = Kanban.objects.filter(owner=self.request.user)
+        return queryset
