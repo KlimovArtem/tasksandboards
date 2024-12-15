@@ -479,7 +479,8 @@ aside {
 }
 
 .main-nav-menu li {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
+  text-wrap: nowrap;
   text-align: center;   
   color: #fff;    
 }
