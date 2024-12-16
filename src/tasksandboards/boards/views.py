@@ -42,9 +42,10 @@ class CreateKanban(LoginRequiredMixin, CreateView):
         board.owner = self.request.user
         board.save()
         columns = formset.save(commit=False)
-        for column in columns:
-            column.board = board
-            column.save()
+        if columns:
+            for column in columns:
+                column.board = board
+                column.save()
         self.object = board
         return HttpResponseRedirect(self.get_success_url())
 

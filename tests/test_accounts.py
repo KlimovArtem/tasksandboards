@@ -93,7 +93,7 @@ class TestSignup:
             headers={'HX-Request': 'true'},
         )
 
-        assert response.status_code == HTTPStatus.FOUND, 'Корректный запрос должен возвращать код 200.'
+        assert response.status_code == HTTPStatus.SEE_OTHER, 'Корректный запрос должен возвращать код 303'
         new_user = django_user_model.objects.filter(email=TestSignup.VALID_DATA['email'])
 
         assert new_user.exists(), 'Корректный запрос не создаёт нового пользователя.'
@@ -154,7 +154,7 @@ class TestSignup:
         )
 
         assert (
-            response.status_code == HTTPStatus.FOUND
+            response.status_code == HTTPStatus.SEE_OTHER
         ), 'После успешного подтверждения аккаунта пользователь не перенаправляется на страницу входа.'
         assert django_user_model.objects.get(
             email='testuser@email.com',
@@ -258,7 +258,7 @@ class TestSignin:
         )
 
         assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс `accounts/signin/` не найден, проверь *urls.py*.'
-        assert response.status_code == HTTPStatus.FOUND, 'Корректный запрос не возвращает код 302.'
+        assert response.status_code == HTTPStatus.OK, 'Корректный запрос не возвращает код 302.'
         assert (
             response.wsgi_request.user.is_authenticated
         ), 'При отправке корректных данных пользователь не был авторизован.'
