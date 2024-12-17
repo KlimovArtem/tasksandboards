@@ -21,6 +21,9 @@ class TestCreateBoard:
         assert (
             unauthorize_response.status_code == 302
         ), 'Не авторизованный пользователь не перенаправляется на страницу авторизации.'
+        assert (
+            unauthorize_response['Location'] == reverse_lazy('accounts:login') + f'?next={self.CREATE_BOARD_URL}'
+        ), 'Не авторизованный пользователь не перенаправляется на страницу авторизации.'
 
         user = django_user_model.objects.create_user('testuser@email.com', 'secret')
         client.force_login(user)
@@ -42,6 +45,9 @@ class TestCreateBoard:
         ), f'Не авторизованный пользователь имеет доступ к ресурсу `{self.CREATE_KANBAN_URL}`.'
         assert (
             unauthorize_response.status_code == 302
+        ), 'Не авторизованный пользователь не перенаправляется на страницу авторизации.'
+        assert (
+            unauthorize_response['Location'] ==  reverse_lazy('accounts:login') + f'?next={self.CREATE_KANBAN_URL}'
         ), 'Не авторизованный пользователь не перенаправляется на страницу авторизации.'
 
         user = django_user_model.objects.create_user('testuser@email.com', 'secret')
@@ -104,6 +110,9 @@ class TestCreateBoard:
         response = client.post(self.CREATE_KANBAN_URL, data={'name': 'testboard'})
         end_numbers_of_boards = Kanban.objects.count()
         assert response.status_code == 302, 'При успешной отправке форммы не происходит перенаправления'
+        assert (
+            response['Location'] == reverse_lazy('boards:board_content', kwrgs={'board_slug': 'testboard'})
+        ), 'После успешного заполнения формы не происходит перенаправление на страницу с сожержимым доски'
         assert (
             end_numbers_of_boards != start_numbers_of_boards
         ), 'При отправке коректной формы не создайтся новая доска.'

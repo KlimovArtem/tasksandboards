@@ -94,10 +94,12 @@ class TestSignup:
         )
 
         assert response.status_code == HTTPStatus.SEE_OTHER, 'Корректный запрос должен возвращать код 303'
+        assert (
+            response['Location'] == reverse_lazy('accounts:confirm_signup')
+        ), 'После успешной регистрации не происходит перенаправление на страницу с подтверждением'
+
         new_user = django_user_model.objects.filter(email=TestSignup.VALID_DATA['email'])
-
         assert new_user.exists(), 'Корректный запрос не создаёт нового пользователя.'
-
         assert not new_user[0].is_active, 'Созданный аккаунт не требует подтверждения.'
 
         new_user.delete()
@@ -156,6 +158,10 @@ class TestSignup:
         assert (
             response.status_code == HTTPStatus.SEE_OTHER
         ), 'После успешного подтверждения аккаунта пользователь не перенаправляется на страницу входа.'
+        assert (
+            response['Location'] == reverse_lazy('accounts:login')
+        ), 'После успешной регистрации не происходит перенаправление на страницу с подтверждением'
+
         assert django_user_model.objects.get(
             email='testuser@email.com',
         ).is_active, 'При вводе коректных данных аккаунт не становится активным.'
@@ -279,4 +285,7 @@ class TestLogout:
 
         assert response.status_code != HTTPStatus.NOT_FOUND, 'Ресурс `accounts/logout/` не найден, проверь *urls.py*.'
         assert response.status_code == HTTPStatus.FOUND, 'Корректный запрос возвращает код 302.'
+        assert (
+            response['Location'] == reverse_lazy('accounts:login')
+        ), 'При выходе из системы не происходит перенаправление на страницу с авторизации.'
         assert response.wsgi_request.user.is_anonymous, 'При корректном запросе пользователь не вышел из системы.'

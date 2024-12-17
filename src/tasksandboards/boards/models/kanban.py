@@ -8,7 +8,7 @@ from boards.models.base import Board
 
 class Kanban(Board):
     def get_absolute_url(self):
-        return reverse_lazy('boards:board_tasks', kwargs={'board_slug': self.slug})
+        return reverse_lazy('boards:board_content', kwargs={'board_slug': self.slug})
 
 
 class Column(models.Model):
