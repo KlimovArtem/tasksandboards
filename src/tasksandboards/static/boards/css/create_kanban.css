@@ -130,8 +130,12 @@ h1 {
   font-size: 0.5rem;
 }
 
-.col-order-btns-layout .btn[data-cols-widget-down-col-btn=""] {
-  background: linear-gradient(var(--black) 65%, var(--dark-grey) 99%);
+.col-order-btns-layout .btn[data-cols-widget-up-col-btn] {
+  background: linear-gradient(0deg, #1e1d1f, var(--dark-grey));
+}
+
+.col-order-btns-layout .btn[data-cols-widget-down-col-btn] {
+  background: linear-gradient(0deg, var(--black), #1e1d20)
 }
 
 .del-col-btn {
@@ -140,7 +144,6 @@ h1 {
   width: 2rem;
   min-width: 0;
   font-family: monospace;
-  background: linear-gradient(0deg, var(--black), #585858);;
 }
 
 .del-col-btn:hover {

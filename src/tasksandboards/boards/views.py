@@ -1,3 +1,4 @@
+from urllib import response
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
@@ -47,7 +48,7 @@ class CreateKanban(LoginRequiredMixin, CreateView):
                 column.board = board
                 column.save()
         self.object = board
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
     def form_invalid(self, form, formset):
         return self.render_to_response(self.get_context_data(form=form, formset=formset))
