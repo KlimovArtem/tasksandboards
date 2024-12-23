@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
     'core.apps.CoreConfig',
+    'tasks.apps.TasksConfig',
 ]
 
 MIDDLEWARE = [
