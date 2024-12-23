@@ -8,5 +8,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('boards/', include('boards.urls', namespace='boards')),
     path('', StartPageView.as_view(), name='start_page'),
+    path('', include('django_components.urls')),
     path('success', SuccessView.as_view(), name='success'),
 ]

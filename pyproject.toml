@@ -13,6 +13,7 @@ pytest-django = "^4.9.0"
 pytils = "^0.4.1"
 pre-commit = "3.4"
 django-htmx = "^1.19.0"
+django-components = "^0.122"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.5"
