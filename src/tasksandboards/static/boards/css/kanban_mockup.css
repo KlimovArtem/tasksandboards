@@ -61,10 +61,6 @@ main {
   margin-left: 0.5rem;
 }
 
-.task-card-header {
-  display: flex;
-}
-
 .task-card-header h3 {
   font-size: 1rem;
 }
@@ -76,25 +72,12 @@ main {
   cursor: pointer;
 }
 
-
-
 .task-card-layout {
+  display: flex;
+  flex-direction: column;
   background: #f4f4f4;
   border-radius: 1.25rem;
   padding: 0.25rem;
   height: 100%;
   overflow-y: hidden;
-  
-}
-
-
-.task-card {
-  min-width: 225px;
-  min-height: 10rem;
-  background: var(--white);
-  border-radius: 1rem;
-  margin-bottom: 0.25rem;
-  box-shadow: 0 0 1px 0 var(--grey);
-  padding: 0.5rem;
-  flex: 0.3rem 0 9.9rem;
 }

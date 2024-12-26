@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-    'django_components'
+    'django_components',
     'django_extensions',
     'django_htmx',
     'corsheaders',
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_components.middleware.ComponentDependencyMiddleware'
+    "django_components.middleware.ComponentDependencyMiddleware",
     'django_htmx.middleware.HtmxMiddleware',
 ]
 
@@ -75,6 +75,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [TEMPLATES_DIR],
+        "APP_DIRS": False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -82,19 +83,39 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'loaders': [(
+            'loaders':[(
                 'django.template.loaders.cached.Loader', [
+                    # Default Django loader
                     'django.template.loaders.filesystem.Loader',
+                    # Inluding this is the same as APP_DIRS=True
                     'django.template.loaders.app_directories.Loader',
+                    # Components loader
                     'django_components.template_loader.Loader',
                 ]
-            )]
+            )],
+            'builtins': [
+                'django_components.templatetags.component_tags',
+            ]
         },
-    },
+    }
+]
+
+
+STATICFILES_FINDERS = [
+    # Default finders
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # Django components
+    "django_components.finders.ComponentsFileSystemFinder",
 ]
 
 WSGI_APPLICATION = 'tasksandboards.wsgi.application'
 
+COMPONENTS = ComponentsSettings(
+    dirs=[
+        BASE_DIR / "components",
+    ],
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -143,12 +164,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-
-STATICFIELS_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectiriesFinder',
-    'django_components.finders.ComponentsFileSystemFinder',
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
