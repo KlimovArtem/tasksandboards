@@ -15,7 +15,11 @@
                 <h2>{{ column.name }}<h2>
             </header>
             <div class="task-card-layout">
-                {% component "task_card" / %}
+                {% for  task in tasks %}
+                    {% if task.status.id == column.id %}
+                        {% component "task_card" title=task.title body=task.body / %}
+                    {% endif %}
+                {% endfor %}
                 {% comment %} <article class="task-card">
                     <header class="task-card-header">
                         <h3>Загаловок карточки</h3>

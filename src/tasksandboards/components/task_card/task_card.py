@@ -9,8 +9,8 @@ class TaskCard(Component):
         js = "task_card.js"
         css = "task_card.css"
 
-    def get_context_data(self):
+    def get_context_data(self, title:str, body=None):
         return {
-            'title': 'Загаловок заметки',
-            'body': 'Тело карточки',
+            'title': title,
+            'body': body,
         }

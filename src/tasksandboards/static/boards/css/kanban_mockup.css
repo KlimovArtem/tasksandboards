@@ -5,10 +5,12 @@ main {
   width: 97%;
   background: var(--white);
   border-radius: 1rem;
-  padding: 0.5rem 0.75rem;
+  padding: 1rem 0.75rem;
   gap: 0 1rem;
   margin: 0 3rem;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .calendar-switcher-layout {
@@ -79,5 +81,5 @@ main {
   border-radius: 1.25rem;
   padding: 0.25rem;
   height: 100%;
-  overflow-y: hidden;
+  overflow-x: visible;
 }

@@ -1,11 +1,10 @@
-from urllib import response
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from accounts.views import HtmxOnlyMixin
 from boards.forms import ColumnFormset, CreateKanbanForm
 from boards.models.kanban import Column, Kanban
+from tasks.models import Task
 
 
 class BoardsList(HtmxOnlyMixin, ListView):
@@ -58,6 +57,11 @@ class BoardContentView(LoginRequiredMixin, DetailView):
     template_name = 'boards/kanban_mockup.html'
     context_object_name = 'board'
     slug_url_kwarg = 'board_slug'
+    
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['tasks'] = Task.objects.filter(board=data['object'].slug)
+        return data
 
     def get_queryset(self):
         queryset = Kanban.objects.filter(owner=self.request.user)
