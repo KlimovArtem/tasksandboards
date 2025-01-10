@@ -62,3 +62,9 @@ class BoardContentView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         queryset = Kanban.objects.filter(owner=self.request.user)
         return queryset
+    
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        self.request.session['current_board'] = response.context_data.get('board').slug
+        return response
+

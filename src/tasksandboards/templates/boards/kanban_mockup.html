@@ -15,24 +15,12 @@
                 <h2>{{ column.name }}<h2>
             </header>
             <div class="task-card-layout">
-                {% comment %} <article class="task-card">
-                    <header class="task-card-header">
-                        <h3>Загаловок карточки</h3>
-                        <span><i class='bx bxs-edit-alt'></i></span>
-                    </header>
-                    <p class="task-card-body">Управление каким-либо объектом — это процесс воздействия на него
-    с целью обеспечения требуемого течения процессов в объекте или требуемо-
-    го изменения его состояния. Основой управления является...</p>
-                </article>
-                <article class="task-card">
-                    <header class="task-card-header">
-                        <h3>Загаловок карточки</h3>
-                        <span><i class='bx bxs-edit-alt'></i></span>
-                    </header>
-                    <p class="task-card-body">Управление каким-либо объектом — это процесс воздействия на него
-    с целью обеспечения требуемого течения процессов в объекте или требуемо-
-    го изменения его состояния. Основой управления является...</p>
-                </article> {% endcomment %}
+                <span hx-get="{% url "tasks:tasks_list" %}?status={{column.pk}}"
+                      hx-swap="outerHTML"
+                      hx-trigger="load"
+                      hx-target="this"
+                >
+                </span>
             </div>
         </section>
     {% endfor %}
