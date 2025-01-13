@@ -12,7 +12,18 @@
     {% for column in board.columns.all %}
         <section class="col-layout">
             <header class="col-header">
-                <h2>{{ column.name }}<h2>
+                <h2>{{ column.name }}</h2>
+                <div class="dropdown-menu col-menu" data-col-menu>
+                    <button class="col-menu-btn" data-col-menu-btn>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                    </button>
+                    <menu class="col-menu-items" data-col-menu-items>
+                        <li><a>Пункт меню</a></li>
+                        <li><a>Пункт меню</a></li>
+                    </menu>
+                </div>
             </header>
             <div class="task-card-layout">
                 <span hx-get="{% url "tasks:tasks_list" %}?status={{column.pk}}"

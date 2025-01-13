@@ -53,7 +53,25 @@ main {
 }
 
 .col-header {
+  display: flex;
   padding: 0.5rem 0 1rem 0;
+  justify-content: space-between;
+}
+
+.col-menu-btn {
+  margin-right: 0.7rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.col-menu-btn:focus {
+  box-shadow: 0 0 1px 0 var(--black);
+}
+
+.col-menu-btn:hover ~ .dropdown-menu menu {
+  display: block;
 }
 
 .col-header h2 {
@@ -69,24 +87,14 @@ main {
   font-size: 1rem;
 }
 
-.task-card-header span {
-  margin-left: auto;
-  background: #f4f4f4;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-
-
-
 .task-card-layout {
   background: #f4f4f4;
   border-radius: 1.25rem;
   padding: 0.25rem;
   height: 100%;
   overflow-y: hidden;
-  
-}
 
+}
 
 .task-card {
   min-width: 225px;
@@ -97,4 +105,13 @@ main {
   box-shadow: 0 0 1px 0 var(--grey);
   padding: 0.5rem;
   flex: 0.3rem 0 9.9rem;
+}
+
+.tasks-card-menu-btn {
+  border: none;
+  outline: none;
+  margin-left: auto;
+  background: #f4f4f4;
+  border-radius: 0.25rem;
+  cursor: pointer;
 }
